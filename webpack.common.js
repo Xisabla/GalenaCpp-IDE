@@ -1,15 +1,8 @@
-const path = require('path');
-const WebpackBar = require('webpackbar');
+const path = require("path");
+const merge = require("webpack-merge");
+const WebpackBar = require("webpackbar");
 
-module.exports = {
-  entry: {
-    app: [path.resolve(__dirname, "./src", "./index.js")]
-  },
-  output: {
-    path: `${__dirname}/dist/`,
-    filename: "bundle.js",
-    publicPath: "/dist/"
-  },
+const shared = {
   module: {
     rules: [
       {
@@ -34,18 +27,70 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "src/images/[name].[ext]"
+            }
+          }
+        ]
       }
     ]
-  },
-  plugins: [
-    new WebpackBar({
-      name: "app",
-      basic: true
-    })
-  ],
-  resolve: {
-    alias: {
-      jquery: "jquery/src/jquery"
-    }
   }
+};
+
+const app = {
+    entry: {
+        main: ["./src/app/index.js"]
+    },
+    output: {
+        path: `${__dirname}/dist/app`,
+        filename: "index.js",
+        publicPath: "./"
+    },
+    target: "electron-main",
+    plugins: [
+        new WebpackBar({
+            name: "app",
+            color: "yellow",
+            basic: true
+        })
+    ]
+};
+
+const client = {
+    entry: {
+            main: ["./src/client/index.js"]
+        },
+        resolve: {
+          alias: {
+            jquery: "jquery/src/jquery"
+          }
+        },
+        output: {
+            path: `${__dirname}/dist/client`,
+            filename: "bundle.js",
+            publicPath: "./"
+        },
+        target: "electron-renderer",
+        plugins: [
+            // HtmlWebpackPlugin
+            /*new MiniCssExtractPlugin({
+              filename: '[name].css',
+              chunkFilename: '[id].css'
+            }),*/
+            new WebpackBar({
+                name: "client",
+                basic: true
+            })
+        ]
+}
+
+module.exports = {
+    app: merge(app, shared),
+    client: merge(client, shared)
 };

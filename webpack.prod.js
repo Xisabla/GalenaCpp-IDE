@@ -1,8 +1,15 @@
 const merge = require("webpack-merge");
-const config = require("./webpack.common");
 
-const prod = {
+const {
+    app,
+    client
+} = require("./webpack.common");
+
+const dev = {
     mode: "production"
 };
 
-module.exports = merge(config, prod);
+const devApp = merge(app, dev);
+const devClient = merge(client, dev);
+
+module.exports = [devApp, devClient];

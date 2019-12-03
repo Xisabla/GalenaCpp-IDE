@@ -1,0 +1,21 @@
+.hwt-content mark {
+    &.variables {
+        background-color: #a3daff;
+    }
+
+    &.functions {
+        background-color: #f9ca24;
+    }
+
+    &.methods {
+        background-color: #7ed6df;
+    }
+
+    &.conditions {
+        background-color: #f39c12;
+    }
+
+    &.args {
+        background-color: #fcc2d7;
+    }
+}

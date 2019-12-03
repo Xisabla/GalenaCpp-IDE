@@ -1,14 +1,16 @@
-const path = require("path");
-
 const merge = require("webpack-merge");
-const config = require("./webpack.common");
+
+const {
+    app,
+    client
+} = require("./webpack.common");
 
 const dev = {
     mode: "development",
-    devServer: {
-        compress: true,
-        port: 9000
-    }
+    watch: true
 };
 
-module.exports = merge(config, dev);
+const devApp = merge(app, dev);
+const devClient = merge(client, dev);
+
+module.exports = [devApp, devClient];
