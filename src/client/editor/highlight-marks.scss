@@ -1,6 +1,15 @@
 .hwt-content mark {
-    &.variables {
-        background-color: #a3daff;
+
+    &.args {
+        background-color: #fcc2d7;
+    }
+
+    &.comment {
+        background-color: #b2bec3;
+    }
+
+    &.conditions {
+        background-color: #f39c12;
     }
 
     &.functions {
@@ -11,11 +20,7 @@
         background-color: #7ed6df;
     }
 
-    &.conditions {
-        background-color: #f39c12;
-    }
-
-    &.args {
-        background-color: #fcc2d7;
+    &.variables {
+        background-color: #a3daff;
     }
 }

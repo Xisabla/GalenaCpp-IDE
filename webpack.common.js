@@ -1,5 +1,6 @@
 const path = require("path");
 const merge = require("webpack-merge");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackBar = require("webpackbar");
 
 const shared = {
@@ -40,7 +41,13 @@ const shared = {
         ]
       }
     ]
-  }
+  },
+  plugins: [
+    /*new HtmlWebpackPlugin({
+      title: "IDE - GalenaCpp",
+      template: "src/index.html"
+    })*/
+  ]
 };
 
 const app = {

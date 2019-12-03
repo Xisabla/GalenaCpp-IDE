@@ -7,8 +7,9 @@ import Editor from './editor/editor'
 import { remote } from 'electron'
 import path from 'path'
 import fs from 'fs'
+import Settings from './settings/settings'
 
-const { /*app,*/ dialog, Menu, /*MenuItem*/ } = remote
+const { /* app, */ dialog, Menu /* MenuItem */ } = remote
 
 export default class IDE {
   constructor (container, config) {
@@ -21,8 +22,8 @@ export default class IDE {
 
     this.pages = [
       new Home(this),
-      new Editor(this)/*,
-            new Settings(this) */
+      new Editor(this),
+      new Settings(this)
     ]
 
     this.load(0)
@@ -33,7 +34,8 @@ export default class IDE {
   readConfig (config) {
     // Default config
     this.config = {
-      indent: 4
+      indent: 4,
+      executable: 'E:\\Projects\\Lab\\GalenaCpp\\program'
     }
 
     // Read given config
@@ -56,10 +58,10 @@ export default class IDE {
           // TODO: For save, and saveAs, keep (somewhere) the file path
           //  set it to null for new files (or for saveAs) and prompt it
           //  if it's null
-          { label: 'Save', accelerator: 'Ctrl+S', click: () => { alert('Not today') /*this.save()*/ } },
-          { label: 'Save As', accelerator: 'Ctrl+Shift+S', click: () => { alert('Not today') /*this.saveAs()*/ } },
+          { label: 'Save', accelerator: 'Ctrl+S', click: () => { this.save() } },
+          { label: 'Save As', accelerator: 'Ctrl+Shift+S', click: () => { this.saveAs() } },
           { type: 'separator' },
-          { label: 'Settings', accelerator: 'Ctrl+,', click: () => { alert('Not today') /*this.load(3)*/ } },
+          { label: 'Settings', accelerator: 'Ctrl+,', click: () => { this.load(2) } },
           { type: 'separator' },
           { role: 'quit', accelerator: 'Ctrl+Q' }
         ]
@@ -85,7 +87,7 @@ export default class IDE {
           //  in the settings, focus on the editor and then run the command and pipe
           // the output on the editor terminal
           // TODO -Bis: If no opened, don't try to save default file, just say "nope"
-          { label: 'Run', accelerator: 'F5', click: () => { alert('Not today') /*this.run()*/ }}
+          { label: 'Run', accelerator: 'F5', click: () => { this.run() } }
         ]
       },
       {
@@ -93,7 +95,7 @@ export default class IDE {
         submenu: [
           { label: 'Homepage', accelerator: 'Ctrl+H', click: () => { this.load(0) } },
           { label: 'Editor', accelerator: 'Ctrl+E', click: () => { this.load(1) } },
-          { label: 'Settings', accelerator: 'Ctrl+,', click: () => { alert('Not today') /*this.load(3)*/ } },
+          { label: 'Settings', accelerator: 'Ctrl+,', click: () => { this.load(2) } },
           { type: 'separator' },
           { role: 'reload' },
           { role: 'toggledevtools' },
@@ -118,7 +120,7 @@ export default class IDE {
 
   load (page, ...args) {
     // Check for valid given page
-    if (typeof (page) === 'number') return this.load(this.pages[page])
+    if (typeof (page) === 'number') return this.load(this.pages[page], ...args)
     if (!page || page === null || typeof (page) !== 'object') return false
 
     // Load page
@@ -130,16 +132,24 @@ export default class IDE {
 
   // Open editor with given file
   open (...args) {
-    // Find editor
-    const editors = this.pages.filter(page => page instanceof Editor)
+    this.load(1, ...args)
+  }
 
-    // Load it
-    if (editors.length > 0) this.load(editors[0], ...args)
+  save () {
+    return this.pages[1].save()
+  }
+
+  saveAs () {
+    return this.pages[1].saveAs()
+  }
+
+  run () {
+    return this.pages[1].run()
   }
 
   // Open a new file
   newFile () {
-    this.open('new_file.gpp')
+    this.open({ filename: 'source.gpp' })
   }
 
   // Select and open a file
@@ -150,14 +160,14 @@ export default class IDE {
         const files = dialogFiles.filePaths
 
         if (files.length > 0) {
-          const file = files[0]
+          const filepath = files[0]
 
-          const filename = path.basename(file)
-          const content = fs.readFileSync(file, {
+          const filename = path.basename(filepath)
+          const content = fs.readFileSync(filepath, {
             encoding: 'utf-8'
           })
 
-          this.open(filename, content)
+          this.open({ filepath, filename, content })
         }
       })
   }

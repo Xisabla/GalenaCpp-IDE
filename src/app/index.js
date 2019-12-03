@@ -1,16 +1,14 @@
-import {
-  app,
-  BrowserWindow,
-  ipcMain as ipc
-} from 'electron'
+import { app, BrowserWindow, ipcMain as ipc } from 'electron'
+import icon from '../images/icon.png'
 
 function createWindow () {
   const win = new BrowserWindow({
-    title: 'Omega',
+    title: 'IDE - GalenaCpp',
     x: 0,
     y: 0,
     minWidth: 900,
     minHeight: 650,
+    icon: icon,
     show: false,
     webPreferences: {
       nodeIntegration: true

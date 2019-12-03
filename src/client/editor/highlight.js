@@ -15,6 +15,10 @@ const variables = /[\w]+[ ]*["="].*/gm
 
 const conditions = /[\w]+[ ]*[">"|"<"|">="|"<="|"=="].*/gm
 
+function comment (input) {
+  return input.match((new RegExp('//.*', 'g')))
+}
+
 function functions (input) {
   const declarations = input.match(/[\w]*[ ]*[":"][ ]*[\w, ]*/gm)
 
@@ -42,6 +46,9 @@ export default function highlight (element) {
     }, {
       highlight: [conditions],
       className: 'conditions'
+    }, {
+      highlight: [comment],
+      className: 'comment'
     }]
   })
 }

@@ -1,0 +1,12 @@
+appId: io.galenacpp-editor.app
+directories:
+  buildResources: './dist'
+  output: './build'
+files:
+  - dist/**/*
+  - src/images/**/*
+  - '!node_modules/**/*'
+win:
+  target: nsis
+  icon: src/images/icon-256.png
+  artifactName: ${name}-setup.${ext}

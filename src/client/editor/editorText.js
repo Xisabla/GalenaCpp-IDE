@@ -47,6 +47,10 @@ export default class EditorText extends PageComponent {
     this.update()
   }
 
+  get code () {
+    return this.textarea.val()
+  }
+
   update () {
     this.textarea.highlightWithinTextarea('update')
   }
