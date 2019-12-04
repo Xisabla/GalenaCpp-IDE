@@ -9,14 +9,15 @@ import path from 'path'
 import fs from 'fs'
 import Settings from './settings/settings'
 
-const { /* app, */ dialog, Menu /* MenuItem */ } = remote
+const { dialog, Menu } = remote
 
 export default class IDE {
-  constructor (container, config) {
+  constructor (container, configFile) {
     this.container = container
     this.currentPage = null
+    this.configFile = configFile
 
-    this.readConfig(config)
+    this.readConfig()
 
     this.setMenu()
 
@@ -31,7 +32,13 @@ export default class IDE {
     console.info('IDE Loaded')
   }
 
-  readConfig (config) {
+  readConfig () {
+    if (!fs.existsSync(this.configFile)) {
+      fs.writeFileSync(this.configFile, JSON.stringify({}))
+    }
+
+    const config = JSON.parse(fs.readFileSync(this.configFile))
+
     // Default config
     this.config = {
       indent: 4,
@@ -40,8 +47,16 @@ export default class IDE {
 
     // Read given config
     if (config) {
-      if (config.indent) this.config.indent = config.indent
+      Object.keys(this.config).forEach(key => {
+        if (config[key]) this.config[key] = config[key]
+      })
     }
+
+    this.writeConfig()
+  }
+
+  writeConfig () {
+    fs.writeFileSync(this.configFile, JSON.stringify(this.config))
   }
 
   setMenu () {

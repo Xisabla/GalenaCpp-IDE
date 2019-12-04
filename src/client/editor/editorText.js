@@ -9,9 +9,7 @@ export default class EditorText extends PageComponent {
 
     this.textarea = $('<textarea></textarea>', {
       id: 'editor',
-      class: 'form-control',
-      rows: '100%',
-      cols: '100%'
+      class: 'form-control'
     }).val(defaultCode)
   }
 
@@ -39,6 +37,8 @@ export default class EditorText extends PageComponent {
     }
 
     event.currentTarget.selectionEnd = start + indent
+
+    this.textarea.highlightWithinTextarea('update')
   }
 
   setCode (code) {

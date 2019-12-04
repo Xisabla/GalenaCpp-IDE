@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Code&display=swap');
+
+#terminalOutput {
+    list-style-type: none;
+    padding: 0px;
+    height: 200px;
+    border: 1px solid black;
+    margin-bottom: 0px;
+    overflow-y: auto;
+    font-family: 'Fira Code', monospace;
+    background: rgb(189, 195, 199);
+}
+
+#terminalOutput li {
+    padding: 5px 10px;
+}
+
+#terminalOutput li:nth-child(even) {
+    background: #fff;
+}
+
+#terminalOutput li:nth-child(odd) {
+    background: #eee;
+}
+
+#terminalInput {
+    width: 100%;
+    border: 1px solid black;
+    border-top: 0px;
+    border-bottom: 0px;
+    font-family: 'Fira Code', monospace;
+}
