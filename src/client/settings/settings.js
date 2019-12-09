@@ -39,6 +39,16 @@ export default class Settings extends Page {
       class: 'form-control'
     }).val(this.ide.config.indent)
 
+    this.displayGroup = $('<div></div>', {
+      class: 'form-group'
+    })
+
+    this.displayLabel = $('<label></label>').text('Display')
+    this.displayInput = $('<input></input>', {
+      type: 'text',
+      class: 'form-control'
+    }).val(this.ide.config.display)
+
     this.formSubmit = $('<input></input>', {
       type: 'submit',
       class: 'btn btn-success'
@@ -53,8 +63,11 @@ export default class Settings extends Page {
     this.indentGroup.append(this.indentInput)
     this.runnerGroup.append(this.runnerLabel)
     this.runnerGroup.append(this.runnerInput)
+    this.displayGroup.append(this.displayLabel)
+    this.displayGroup.append(this.displayInput)
     this.form.append(this.indentGroup)
     this.form.append(this.runnerGroup)
+    this.form.append(this.displayGroup)
     this.form.append(this.formSubmit)
     this.container.append(this.form)
     this.ide.container.append(this.title)
@@ -65,6 +78,7 @@ export default class Settings extends Page {
 
       this.ide.config.indent = this.indentInput.val()
       this.ide.config.executable = path.resolve(this.runnerInput.val())
+      this.ide.config.display = this.displayInput.val()
 
       this.ide.writeConfig()
 

@@ -95,7 +95,7 @@ export default class Editor extends Page {
     this.save()
     this.terminal.write('Running file')
 
-    const cmd = `wsl ${this.ide.config.executable} ${this.file.filepath}`
+    const cmd = `wsl DISPLAY=${this.ide.config.display} ${this.ide.config.executable} ${this.file.filepath}`
       .replace(/C:\\/g, '/mnt/c/')
       .replace(/D:\\/g, '/mnt/d/')
       .replace(/E:\\/g, '/mnt/e/')

@@ -42,7 +42,8 @@ export default class IDE {
     // Default config
     this.config = {
       indent: 4,
-      executable: 'E:\\Projects\\Lab\\GalenaCpp\\program'
+      executable: 'E:\\Projects\\Lab\\GalenaCpp\\program',
+      display: '0:0'
     }
 
     // Read given config
