@@ -6,7 +6,7 @@ import './editor.scss'
 const methods = [
   /si/gi, /afficher/gi, /afficherl/gi, /saisir/gi,
   /alors/gi, /sinon/gi, /fin/gi, /tant que/gi, /faire/gi,
-  /repéter/gi, /retourner/gi, /appeler/gi
+  /repéter/gi, /retourner/gi, /appeler/gi, /dessiner/gi
 ]
 
 const args = /[[ ][\w]+,]?[ ]*[\w]+/gm

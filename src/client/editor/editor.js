@@ -46,7 +46,6 @@ export default class Editor extends Page {
 
     this.file = file
 
-    // TODO: filename -> become input on double click
     this.container.append(this.title)
     this.title.text(file.filename)
     this.editorText.load()
@@ -84,7 +83,7 @@ export default class Editor extends Page {
     })
   }
 
-  rename(name) {
+  rename (name) {
     this.file.filename = name
     this.title.text(name)
     this.terminal.write('Renamed file to ' + name)

@@ -70,9 +70,6 @@ export default class IDE {
           { label: 'New File', accelerator: 'Ctrl+N', click: () => { this.newFile() } },
           { label: 'Open File', accelerator: 'Ctrl+O', click: () => { this.openFile() } },
           { type: 'separator' },
-          // TODO: For save, and saveAs, keep (somewhere) the file path
-          //  set it to null for new files (or for saveAs) and prompt it
-          //  if it's null
           { label: 'Save', accelerator: 'Ctrl+S', click: () => { this.save() } },
           { label: 'Save As', accelerator: 'Ctrl+Shift+S', click: () => { this.saveAs() } },
           { type: 'separator' },
@@ -98,10 +95,6 @@ export default class IDE {
       {
         label: 'Run',
         submenu: [
-          // TODO: For run, automatically call save, then look for the gpp executable
-          //  in the settings, focus on the editor and then run the command and pipe
-          // the output on the editor terminal
-          // TODO -Bis: If no opened, don't try to save default file, just say "nope"
           { label: 'Run', accelerator: 'F5', click: () => { this.run() } }
         ]
       },

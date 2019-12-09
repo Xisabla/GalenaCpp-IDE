@@ -63,8 +63,8 @@ export default class Terminal extends PageComponent {
 
   read (content) {
     if (this.child && this.child.stdin && this.child.stdin.writable) {
-        this.write(content)
-        this.child.stdin.write(content + '\n')
+      this.write(content)
+      this.child.stdin.write(content + '\n')
     }
   }
 }
