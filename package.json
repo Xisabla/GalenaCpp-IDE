@@ -22,7 +22,7 @@
     "bootstrap": "^4.4.1",
     "css-loader": "^3.2.0",
     "drag-drop": "^6.0.0",
-    "electron": "^7.1.2",
+    "electron": "^7.2.4",
     "electron-builder": "^21.2.0",
     "electron-rebuild": "^1.8.8",
     "eslint": "^6.7.2",
